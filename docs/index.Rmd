@@ -1,0 +1,87 @@
+---
+title: "Microplastics in Iceland"
+subtitle: "Main Sources and Pathways to the Ocean"
+author:   |
+  <br><br>
+  <span class="noem">Valtýr Sigurðsson</span>
+  <br><br>
+  <img src="images/tvologohex.png" width="15%" align="right" />
+  
+  <br><br><br>
+  
+date: "<br><br>2019-09-05, updated: `r format(Sys.time(), '%e. %B %Y')`"
+lang: is
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: ["assets/kunoichiB.css", "assets/ninjutsuB.css" , "assets/ninpo.css"]
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+---
+class: center, top
+<video width="100%" height="100%" autoplay="" loop="">
+  <source src="E:/DCIM/101MEDIA/DJI_0070.MP4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+.content.vmiddle[
+.center[
+# .yellow[Vöktunarsumarið 2021]
+## .yellow[Á Norðurlandi vestra]
+### .white[Einar og Valtýr    ] 
+
+## ![](images/nnvlogo.png)
+
+
+]]
+
+.bottom_abs[.footer-note[.tiny[.green[Image Credit: ][VS](https://gfycat.com/blankachingghostshrimp)]]
+]
+
+???
+<!-- background-image: url("https://thumbs.gfycat.com/PersonalInfantileCuckoo-size_restricted.gif") -->
+Hæ, my name is
+This is a talk about the main sources of MP's in Iceland and their pathways to the ocean. It's taken from a report that the companies/institutions I work for did for the environmental ministry of Iceland.
+
+---
+
+class: split-two with-border border-white
+
+.column.bg-main3[.content[
+  .split-five[
+
+ .row.bg-main1[.content.left.font_medium[
+* Smaller boats often .blue[painted by owners] every **3 to 5 years** - .font-dance[a few buckets]
+* The hull (bottom side) is more frequently painted
+* .blue[Polymer content] varies (30%-80%)
+* Large margin of error.
+ ]]
+ 
+  .row.bg-main2[.content.left[
+* .font_medium[Total wettet area of the Icelandic fleet `r icon::ionicons$boat`] .tiny[(Moser 2016)]
+* .font_medium[**1 large ship** requires tonnes of paint every couple of years.]
+* .font_medium[Overspray and flakes of .blue[old washed-off ship paint] settles around in shipyards.]
+* .font_medium[Overall not a large source if shipyards follow .font-dance[proper etiquette] ]
+
+ ].bottom_abs[.footer-note[.tiny[[Icelandic transport authority](https://www.icetra.is/)]]]]
+
+  .row.bg-main4[.content.left.font_medium[
+
+* .font_medium[**7.000 tonnes** in use in Icelandic waters] .tiny[(Hann 2018)] .font-dance[Gross overestimation] .tiny[(said somone at the Marine institute)]
+* Different .blue[types] of filament shed at different .blue[rates]
+* different .red[usage], .red[strain] and rate of deterioration
+* Largely unknown
+
+ ]]
+
+ ]
+]]
+
+.column.bg-white[.content.center.vmiddle[
+{{content}}
+]]
