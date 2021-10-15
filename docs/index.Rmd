@@ -1,13 +1,7 @@
 ---
-title: "Microplastics in Iceland"
-subtitle: "Main Sources and Pathways to the Ocean"
-author:   |
-  <br><br>
-  <span class="noem">Valtýr Sigurðsson</span>
-  <br><br>
-  <img src="images/tvologohex.png" width="15%" align="right" />
-  
-  <br><br><br>
+title: "Vöktunarsumarið 2021"
+subtitle: "Vöktunarsumarið 2021"
+author: <span class="noem">Einar Þorleifsson og Valtýr Sigurðsson</span>
   
 date: "<br><br>2019-09-05, updated: `r format(Sys.time(), '%e. %B %Y')`"
 lang: is
@@ -24,64 +18,552 @@ output:
       countIncrementalSlides: false
 
 ---
+
 class: center, top
-<video width="100%" height="100%" autoplay="" loop="">
-  <source src="E:/DCIM/101MEDIA/DJI_0070.MP4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-.content.vmiddle[
-.center[
-# .yellow[Vöktunarsumarið 2021]
-## .yellow[Á Norðurlandi vestra]
-### .white[Einar og Valtýr    ] 
-
-## ![](images/nnvlogo.png)
-
+background-image: url("https://raw.githubusercontent.com/harkanatta/Laugarbakki2021/main/docs/images/IMG_2622.JPEG")
+background-size: 100%
+.content[
+.left[
+<br>
+<br>
+# .white[Vöktunarsumarið 2021] 
+## .white[Einar og Valtýr] 
+<br>
+<br>
+.bottom_abs_r[
+.right[.boxshadow[![](images/nnvlogo.png)]]]
 
 ]]
 
-.bottom_abs[.footer-note[.tiny[.green[Image Credit: ][VS](https://gfycat.com/blankachingghostshrimp)]]
+.bottom_abs[
+.footer-note[.tiny[.green[Mynd: ][EÓ](https://www.nnv.is/)]]
 ]
 
 ???
-<!-- background-image: url("https://thumbs.gfycat.com/PersonalInfantileCuckoo-size_restricted.gif") -->
-Hæ, my name is
-This is a talk about the main sources of MP's in Iceland and their pathways to the ocean. It's taken from a report that the companies/institutions I work for did for the environmental ministry of Iceland.
+
 
 ---
+name: yfirlit
+layout: true
+class: split-40  bg-main1
 
-class: split-two with-border border-white
+.column.bg-main3[.content[
+  .split-four[
+
+.row.bg-main1[.content.left.font_medium[
+.font2[
+Víðáttumikið landsvæði (13.105 km<sup>2</sup>)
+]
+]]
+
+.row.bg-main4[.content.font2[
+6 náttúruverndarsvæði + 28 svæði á náttúruminjaskrá
+ ]]
+
+ 
+.row.bg-main2[.content.left.font2[
+2020 - Forkönnun
+ ]]
+ 
+.row.bg-main3[.content.left.font2.white[
+2021 - Forkönnun .small[og frekari rannsóknir]
+ ]]
+ 
+ 
+ ]]]
+
+
+.column.bg-white[.content.center.vmiddle[
+{{content}}
+]]
+
+---
+class: hide-row2-col1 hide-row3-col1 hide-row4-col1
+
+<img src="https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/svaedid.png?raw=true" width=100%>
+
+---
+class: fade-row1-col1 hide-row3-col1 hide-row4-col1
+
+<img src="https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Natturuverndarsvaedi.png?raw=true" width=100%>
+
+
+---
+class: fade-row1-col1 fade-row2-col1 hide-row4-col1
+
+<img src="https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/2020.png?raw=true" width=100%>
+
+
+---
+class: fade-row1-col1 fade-row2-col1 fade-row3-col1
+
+<img src="https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/2021.png?raw=true" width=100%>
+
+
+
+---
+name:Hrútey
+layout:false
+class: split-25 bg-white with-border
+
+#Kortlagning lúpínu í Hrútey
+
+```{r hrutey, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, out.width= '100%'}
+Packages <- c("magrittr", "exifr", "sf", "tidyverse", "glue", "httr", "leaflet", "leaflet.extras", "leafem", "leafpop", "rgdal")
+pacman::p_load(Packages, character.only = TRUE)
+Heitirepo <- 'hrutey'
+urlid <- glue::glue("https://api.github.com/repos/harkanatta/",Heitirepo,"/git/trees/main?recursive=1")
+req <- GET(urlid)
+stop_for_status(req)
+url2 <- glue::glue("https://raw.githubusercontent.com/harkanatta/",Heitirepo,"/main/")
+
+filelist <- tibble(path=unlist(lapply(content(req)$tree, "[", "path"), use.names = F) %>% 
+                     stringr::str_subset("minnimyndir") %>% 
+                     stringr::str_subset("JPEG|JPG|PNG")) %>%
+  mutate(URL=url2,
+         mURL=glue::glue("{URL}{path}")) %>% 
+  dplyr::select(mURL)
+
+image_files <- list.files("C:/Users/valty/Documents/vinna/nnv/vöktun/2021/hrutey/minnimyndir", full.names = TRUE,recursive = T) %>% 
+    read_exif(tags = "GPSPosition") %>% 
+    separate(GPSPosition, into = c("lat", "lon"), sep = "\\s") %>% 
+    mutate(lat=as.numeric(lat), lon=as.numeric(lon),
+           myndir=filelist$mURL) %>% 
+    drop_na(lat) %>% 
+    st_as_sf(coords = c("lon", "lat"), crs = 'WGS84')
+
+img <- "https://github.com/harkanatta/ssnv_trident/blob/master/graphs/tvologo.jpg?raw=true"
+ganga <- rgdal::readOGR("C:/Users/valty/Documents/vinna/github/Laugarbakki2021/docs/hrutey/kort/ganga.shp",layer = 'ganga', verbose = F )
+breidur <- rgdal::readOGR("C:/Users/valty/Documents/vinna/github/Laugarbakki2021/docs/hrutey/kort/breidur.shp", verbose = F )
+leaflet() %>%
+  addTiles() %>%
+  #addWMSTiles( 
+  #  "http://gis.lmi.is/geoserver/wms", 
+  #  layers = "LMI_Kort", 
+  #  options = WMSTileOptions(format = "image/png", transparent = TRUE), 
+  #  attribution = "WMTS – Flýtiþjónustur © 2021 LMÍ" 
+  #) %>% 
+  addScaleBar() %>%  
+  addPolygons(data = breidur,color = "#33FFE1", weight = 1, smoothFactor = 0.5,
+              opacity = 1.0, fillOpacity = 1) %>% 
+  addCircleMarkers(data = image_files,
+                   popup = leafpop::popupImage(image_files$myndir),
+                   color = "#FFFF00") %>%
+  #addPolylines(data = ganga, color = "#000000") %>% 
+  leafem::addLogo(img, width = '20%', height = '25%',offset.y = 20,offset.x = 80,alpha = 0.7) %>% 
+  leaflet.extras::addFullscreenControl(pseudoFullscreen = T)
+
+```
+
+???
+-Hrútey er fólkvangur þar sem skógrækt hefur verið stunduð síðan 1942.
+
+-Vinsælt útivistarsvæði
+
+-Nýleg brú að Hrútey
+
+-Ljóst að umferð gangandi fólks mun aukast verulega í framtíðinni og spurning um áhrif þess á grágæsavarp í eynni.
+
+-Gæta að göngustígum, útbreiðslu ágengra plöntutegunda (ekki enn skógarkerfill). Huga þarf að sjálfsáningu trjáa í eynni.
+
+-(Kjarrhveiti)
+
+---
+name:Hveravellir
+layout: true
+class: split-30
+
+```{r turismi, message=FALSE, warning=FALSE, cache=FALSE, include=FALSE}
+library(sparkline)
+x = rev(c(2009565,
+2315925,
+2195271,
+1767726,
+1261938,
+969181,
+781016,
+646921,
+540824,
+459252,
+464536,
+472672,
+458999,
+398901,
+361187,
+348533,
+308768,
+248580,
+296000))
+```
 
 .column.bg-main3[.content[
   .split-five[
 
- .row.bg-main1[.content.left.font_medium[
-* Smaller boats often .blue[painted by owners] every **3 to 5 years** - .font-dance[a few buckets]
-* The hull (bottom side) is more frequently painted
-* .blue[Polymer content] varies (30%-80%)
-* Large margin of error.
+  .row.bg-main1[.content.left.font_medium.white[
+Massatúrismi á Íslandi:] .center[mikil aukning frá 2001 til 2019: `r sparkline(x, type ='bar')`]
+ ]
+ 
+  .row.bg-main3[.content.left.font_medium.white[
+Sólfylgja (*Geum urbanum*)
  ]]
  
-  .row.bg-main2[.content.left[
-* .font_medium[Total wettet area of the Icelandic fleet `r icon::ionicons$boat`] .tiny[(Moser 2016)]
-* .font_medium[**1 large ship** requires tonnes of paint every couple of years.]
-* .font_medium[Overspray and flakes of .blue[old washed-off ship paint] settles around in shipyards.]
-* .font_medium[Overall not a large source if shipyards follow .font-dance[proper etiquette] ]
-
- ].bottom_abs[.footer-note[.tiny[[Icelandic transport authority](https://www.icetra.is/)]]]]
-
-  .row.bg-main4[.content.left.font_medium[
-
-* .font_medium[**7.000 tonnes** in use in Icelandic waters] .tiny[(Hann 2018)] .font-dance[Gross overestimation] .tiny[(said somone at the Marine institute)]
-* Different .blue[types] of filament shed at different .blue[rates]
-* different .red[usage], .red[strain] and rate of deterioration
-* Largely unknown
-
+  .row.bg-main3[.content.left.font_medium.white[
+Regnfang (*Tansetum vulgare*)
  ]]
 
+ 
+  .row.bg-main3[.content.left.font_medium.white[
+Fagurfífill (*Bellis perennis*)
+ ]]
+
+  .row.bg-main3[.content.left.font_medium.white[
+Græðisúra (*Plantago major*) 
+ ]]
+ 
  ]
 ]]
 
 .column.bg-white[.content.center.vmiddle[
 {{content}}
 ]]
+
+---
+class: gray-row2-col1 gray-row3-col1 gray-row4-col1 gray-row5-col1 with-thick-border border-white
+## Hveravellir
+```{r hvero, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+
+knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0405.JPG?raw=true")
+```
+
+
+
+???
+ 
+ Tillaga að breytingum: 
+ - færa bílastæði 
+ - breyta staðsetningu skála og tjaldsvæði (*Pétur Gíslason staðarhaldari á Hveravöllum*)) 
+
+ Hvernig tengjum við þetta verkefni við Umhverfisstofnun, Umhverfisráðuneytið, skipulagsáætlanir osfrv.?
+
+---
+class: gray-row1-col1 gray-row3-col1 gray-row4-col1 gray-row5-col1 with-thick-border border-white
+## Hveravellir - túristaplöntur
+```{r solfyglja, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+
+rust <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/solfylgja/solfylgja.JPEG?raw=true')
+sifrelis <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/solfylgja/IMG_2051.JPEG?raw=true")
+
+img <- c(image_border(rust, "white", "20x10"), image_border(sifrelis, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+
+Sólfylgja (*Geum urbanum*)
+
+???
+komment
+
+---
+class: gray-row1-col1 gray-row2-col1 gray-row4-col1 gray-row5-col1 with-thick-border border-white
+## Hveravellir - túristaplöntur
+```{r regnfang, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+
+
+knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/IMG_2055_regnfang.JPEG?raw=true")
+```
+
+Regnfang (*Tansetum vulgare*)
+
+???
+komment
+
+
+---
+class: gray-row1-col1 gray-row2-col1 gray-row3-col1 gray-row5-col1 with-thick-border border-white
+## Hveravellir - túristaplöntur
+```{r fagurfifill, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+#img <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/IMG_3103.JPEG?raw=true") 
+#image_append(image_scale(img, "x400"))
+
+knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/IMG_3103.JPEG?raw=true")
+```
+
+Fagurfífill (*Bellis perennis*)
+
+???
+komment
+
+---
+class: gray-row1-col1 gray-row2-col1 gray-row3-col1 gray-row4-col1 with-thick-border border-white
+## Hveravellir - túristaplöntur
+```{r sura, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, out.width = '90%'}
+ knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/sura.JPEG?raw=true")
+```
+
+Græðisúra (*Plantago major*) 
+
+???
+komment
+
+
+
+---
+name:Bólugil
+layout:false
+background-image: url("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0999.JPG?raw=true")
+background-size: 100%
+
+# Bólugil
+
+???
+Mun  Bólugil verða ferðamannastaður í framtíðinni? Eins og er kemur varla nokkuð maður þangað
+
+
+---
+layout:false
+class: split-40 bg-white with-border
+
+.row[.left.vmiddle[
+.figbreytt[![](https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Vholar/landscape.JPG?raw=true)]
+
+]]
+.row[
+  .split-three.with-border[
+  .column.bg-main1[.content[
+  <br>
+  <br>
+  .figb90[![](https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Vholar/holar_skrida.JPG?raw=true)]
+
+    ]]
+  .column.bg-white[.content[
+  <br>
+  <br><br>
+  <br>
+ .font2.center[**Vatnsdalshólar**]
+
+.font_large[
+* Þrístapar
+* Fuglar á Flóðinu (2200 álftir)
+
+]
+
+  ]
+
+  ]
+  .column.bg-main4[.content[
+  <br>
+  <br>
+  .figb90[![](https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Vholar/DJI_0698.JPG?raw=true)]
+  
+  ]]
+]]
+
+---
+
+name:Bólugil
+layout:false
+background-image: url("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0999.JPG?raw=true")
+background-size: 100%
+
+# Bólugil
+
+???
+Mun  Bólugil verða ferðamannastaður í framtíðinni? Eins og er kemur varla nokkuð maður þangað
+
+
+---
+name: Sigríðar
+layout:false
+class: split-20 bg-white with-border
+
+.row[.left.center.vmiddle[
+# Sigríðarstaðavatn
+]]
+.row[.content[
+```{r sigr, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width='100%'}
+
+bhluti <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/flodid_Bhluti.png?raw=true')
+russi <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/IMG_8777.jpeg?raw=true")
+blom <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/blastjarna.jpg?raw=true")
+
+img <- c(image_border(blom, "white", "20x10"), image_border(russi, "white", "20x10"), image_border(bhluti, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+]]
+
+???
+
+Í tillögu NÍ er þetta allt eitt stórt verndarsvæð: Sigríðarstaðavatn, Hóp, Þingeyrarsandur, Hvítserkur, Húnavatn, Vatnsdalsá, Vatnsdalur.
+Á Norðvesturlandi eru mjög fá vernduð svæði en af nógu að taka af mjög áhugaverðum svæðum til náttúruverndar.
+
+---
+
+
+layout: false
+class: split-10 bg-main1
+.row[.left.center.vmiddle[
+
+]]
+.row[.content[
+```{r kattarauga, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width='100%'}
+
+eyjan <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/kattarauga/IMG_7353.JPEG?raw=true')
+hlidin <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/kattarauga/DJI_0234.JPG?raw=true")
+
+
+img <- c(image_border(eyjan, "white", "20x10"), image_border(hlidin, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+
+]]
+
+???
+- Langar til að gera ítarlegri rannsóknir á vatnalífi
+- Ísköld viðkvæm lind með fljótandi gróðurhólmum, “dvergsilungum”
+
+---
+name: Reykjafoss
+layout:false
+class: split-20 bg-white with-border
+
+.row[.left.center.vmiddle[
+# Reykjafoss
+]]
+.row[.content[
+```{r Reykjafoss, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width='100%'}
+
+eyjan <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Reykjafoss/DJI_0945.JPG?raw=true')
+hlidin <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/Reykjafoss/DJI_0950.JPG?raw=true")
+
+
+img <- c(image_border(eyjan, "white", "20x10"), image_border(hlidin, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+]]
+
+???
+
+- Er að verða massatúrismanum að bráð
+- Vantar tilfinnanlega merkingar, göngustígagerð, landvörslu og framtíðarsýn
+
+---
+name:Hofsafréttur
+layout: true
+class: split-20
+
+.column.bg-main3[.content[
+  .split-four[
+
+  .row.bg-main1[.content.left.font2[
+Orravatnsrústir .font-dance[mælingar á sífrera]
+ ]]
+ 
+  .row.bg-main4[.content.left.font2[
+Ásbjarnarvötn .font-dance[776 m]
+ ]]
+
+ 
+  .row.bg-main2[.content.font2[
+Ingólfsskáli 
+ ]]
+
+  .row.bg-main3[.content.left.font2.white[
+Laugafell .font-dance[er rétt hjá]
+ ]]
+ 
+ ]
+]]
+
+.column.bg-white[.content.center.vmiddle[
+{{content}}
+]]
+
+---
+class: gray-row2-col1 gray-row3-col1 gray-row4-col1 with-thick-border border-white
+
+# Orravatnsrústir (mælingar á sífrera)
+```{r orravotn, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+library(magick)
+
+rust <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/IMG_5210.JPEG?raw=true')
+sifrelis <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/sifrelis.jpg?raw=true")
+
+img <- c(image_border(rust, "white", "20x10"), image_border(sifrelis, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+
+???
+Eitt merkilegasta sífrerasvæði landsins og það sem liggur hvað hæst (mögulega síðasti sífrerinn á Íslandi þegar allt annað verður bráðnað)
+
+---
+class: gray-row1-col1 gray-row3-col1 gray-row4-col1 with-thick-border border-white
+# Ásbjarnarvötn (776 m)
+```{r asbjarni, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+
+#droni <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0135.JPG?raw=true')
+AnnarDroni <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0117.JPG?raw=true")
+Orninn <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/haforn.JPEG?raw=true")
+
+#img <- c(image_border(droni, "white", "20x10"), image_border(AnnarDroni, "white", "20x10"), image_border(Orninn, "white", "20x10"))
+img <- c(image_border(AnnarDroni, "white", "20x10"), image_border(Orninn, "white", "20x10"))
+image_append(image_scale(img, "x600"))
+# knitr::include_graphics("https://raw.githubusercontent.com/harkanatta/asbjarnarvotn21/main/minnimyndir/DJI_0129.JPEG")
+```
+
+???
+- Merkilegt gróðurlendi. 
+- Þar eru fuglategundir sem ná hér sínum hæstu hæðarmörkum
+
+
+---
+class: gray-row1-col1 gray-row2-col1 gray-row4-col1 with-thick-border border-white
+# Ingólfsskáli og Sátujökull
+```{r vegur, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
+ knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/ingolfsskali.png?raw=true")
+```
+
+
+???
+Þar eru margar ferðamannaplöntur og mikil lúpína
+
+---
+class: gray-row1-col1 gray-row2-col1 gray-row3-col1 with-thick-border border-white
+
+# Laugafell 
+## er rétt hjá
+```{r skipti, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, out.width = '50%'}
+ knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/laugafellslaug.jpg?raw=true")
+```
+
+<br>
+Mynd: [siddharthandshruti.com](https://siddharthandshruti.com/wp-content/uploads/2017/06/siddharthandshruti_Laugafellslaug-768x576.jpg)
+
+
+???
+Þetta er utan okkar svæðis en liggur mjög vel við að athuga þegar við förum í Orravatnsrústir
+
+
+
+---
+
+name:Lokaglæra
+layout: false
+background-image: url("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/DJI_0122.JPG?raw=true")
+background-size: 100%
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+# .white[Mikilvægt starf sem skilar sér í aukinni þekkingu á náttúru landsins og mun örugglega nýtast vel í náttúruvernd í náinni framtíð og til lengri tíma.]
+
+.bottom_abs_r[
+.right[.boxshadow[![](images/nnvlogo.png)]]]

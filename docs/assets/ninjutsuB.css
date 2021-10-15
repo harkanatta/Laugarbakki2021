@@ -32,6 +32,12 @@
 
 /*********** figures ***********/
 
+.figbreytt img {
+  width: 120%;
+  padding: -1;
+  margin: -2;
+  margin-left: -2%;
+}
 .figb img {
   width: 99%;
   padding: 0;
@@ -45,6 +51,12 @@
 }
 
 .figb80 img {
+  width: 80% !important;
+  padding: 5%;
+  margin: -2.5%;
+}
+
+.figb60 img {
   width: 80% !important;
   padding: 5%;
   margin: -2.5%;
@@ -482,6 +494,7 @@
 .top_70 { top: 70% !important;}
 .top_80 { top: 80% !important;}
 
+.bottom_abs_r { position: absolute; bottom: 0; z-index:1; right: 0;}
 .bottom_abs { position: absolute; bottom: 0; z-index:1;}
 .top_abs    { position: absolute; top: 0; z-index:1;}
 .width100 {width: 100%!important;}
