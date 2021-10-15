@@ -238,6 +238,7 @@ knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main
 
 
 ???
+
  Ferðamenn:
  - yfir 300 þúsund árið 2001 
  - yfir 2 milljónir og 300 þúsund árið 2018
@@ -373,7 +374,9 @@ background-size: 100%
 ### [Feltbók](https://hackmd.io/@Valtyr/H13_MrQhu)
 
 ???
-Mun  Bólugil verða ferðamannastaður í framtíðinni? Eins og er kemur varla nokkuð maður þangað
+Einfalt og þægilegt skýrslu- og dagbókarform þar sem hægt er að koma öllum upplýsingum fyrir á einfaldan og aðgengilegan hátt.
+Hér er hægt að halda utan um gögn úr einni eða mörgum feltferðum á stafrænan máta.
+Væri mögulega hægt að gera leiðbeiningabækling
 
 
 ---
