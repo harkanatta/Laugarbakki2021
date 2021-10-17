@@ -251,7 +251,7 @@ knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main
 
 ---
 class: gray-row1-col1 gray-row3-col1 gray-row4-col1 gray-row5-col1 with-thick-border border-white
-## Hveravellir - túristaplöntur
+## Hveravellir - ferðamannaplöntur
 ```{r solfyglja, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
 
 rust <- image_read('https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/solfylgja/solfylgja.JPEG?raw=true')
@@ -269,7 +269,7 @@ komment
 
 ---
 class: gray-row1-col1 gray-row2-col1 gray-row4-col1 gray-row5-col1 with-thick-border border-white
-## Hveravellir - túristaplöntur
+## Hveravellir - ferðamannaplöntur
 ```{r regnfang, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
 
 
@@ -284,7 +284,7 @@ komment
 
 ---
 class: gray-row1-col1 gray-row2-col1 gray-row3-col1 gray-row5-col1 with-thick-border border-white
-## Hveravellir - túristaplöntur
+## Hveravellir - ferðamannaplöntur
 ```{r fagurfifill, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,out.width = '90%'}
 #img <- image_read("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/IMG_3103.JPEG?raw=true") 
 #image_append(image_scale(img, "x400"))
@@ -299,7 +299,7 @@ komment
 
 ---
 class: gray-row1-col1 gray-row2-col1 gray-row3-col1 gray-row4-col1 with-thick-border border-white
-## Hveravellir - túristaplöntur
+## Hveravellir - ferðamannaplöntur
 ```{r sura, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE, out.width = '90%'}
  knitr::include_graphics("https://github.com/harkanatta/Laugarbakki2021/blob/main/docs/images/blom/sura.JPEG?raw=true")
 ```
