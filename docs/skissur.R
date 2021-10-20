@@ -1,4 +1,4 @@
-Packages <- c("exifr", "tidyr", "sf", "tidyverse", "mapview", "leafpop", "htmlwidgets", "leafem", "leaflet.extras")
+Packages <- c("exifr", "tidyr", "sf", "tidyverse", "mapview", "leafpop", "htmlwidgets", "leafem", "leaflet.extras", "lwgeom")
 pacman::p_load(Packages, character.only = TRUE)
 
 
